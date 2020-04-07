@@ -1,0 +1,333 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load bootstrap_pagination %}
+<head>
+  {% block head %}
+
+  <title>
+    {% block title %}
+    blogname &mdash; homepage
+    {% endblock title %}
+  </title>
+  {% endblock head %}
+
+</head>
+
+
+{% block body %}
+
+
+    <!-- navbar start -->
+
+
+
+
+    <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
+
+      <div class="container">
+        <div class="d-flex align-items-center">
+
+          <div class="mr-auto">
+
+            <nav class="site-navigation position-relative text-right" role="navigation">
+
+
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none pl-0 d-lg-block">
+                <li>
+                  <a style="font-size: x-large;" class="active home" href="{% url 'blogsite:home' %}">
+                    Home
+                  </a>
+
+                </li>
+                {% for category  in navbar_items  %}
+              
+                <li class="nav-link text-left nav-item dropdown" is="dropdown">
+                  <div  style="cursor: pointer;" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    {{category.name}}
+                  </div>
+
+                  <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                    {% for sub in category.categories.all  %}
+
+
+                    <a class="dropdown-item" href="{% url 'blogsite:category' sub.id sub.category %}">
+                      {{sub.name}}
+                    </a>
+                    {% endfor %}
+                  </div>
+
+                </li>
+
+                {% endfor %}
+              </ul>
+
+            </nav>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- navbar end -->
+  <!-- <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300"> -->
+
+
+  <div class="site-section py-0">
+
+    <div class="owl-carousel hero-slide owl-style">
+      {% for headlines in headlines_scroll.all|slice:':5' %}
+      <div class="site-section">
+        <div class="container">
+
+          <div class="half-post-entry d-block d-lg-flex bg-light">
+
+            <div class="img-bg" style=" background-image: url('{{headlines.image.url}}')"></div>
+            <div class="contents">
+              <span class="caption">Headlines</span> <br>
+             <a class="artcle" href="{{headlines.get_absolute_url}}">{{headlines.title}}</a>
+
+
+              <div class="post-meta">
+                <span class="d-block"><a href="#">{{headlines.subcategory.name}}</a> in <a
+                    href="#">{{headlines.subcategory.category.name}}</a></span>
+                <span class="date-read"> {{headlines.date_updated}}<span class="mx-1">&bullet;</span><span
+                    class=""></span></span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+
+  </div>
+
+
+  <div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="row">
+            <div class="col-12">
+              <div class="section-title">
+                <h2>News Hub</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-md-12">
+              {% for newshub in headlines_pag  %}
+              <div class="post-entry-2 d-flex bg-light">
+                <div class="thumbnail" style="height: 230px; background-image: url('{{newshub.image.url}}')"></div>
+                <div class="contents">
+                  <a class="" href="{{newshub.get_absolute_url}}"><h3 style="font-weight: 900; " class="article">{{newshub.title}}</h3></a>
+                  <div class="post-meta">
+                    <span  class="d-block article "><a href="#">{{newshub.subcategory.name}}</a> in <a href="#">{{newshub.subcategory.category.name}}</a></span>
+                    <span class="date-read article">{{newshub.date_updated}}<span class="mx-1">&bullet;</span><span
+                        class=""></span></span>
+                  </div>
+                </div>
+              </div>
+           
+              {% endfor %}
+            </div>
+            {% bootstrap_paginate headlines_pag %}
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="section-title">
+            <h2>Trending</h2>
+          </div>
+          {% for trending  in trending.all|slice:'6' %}
+
+        
+          <div class="trend-entry d-flex">
+            <div class="number align-self-start">{{forloop.counter}}</div>
+            <div class="trend-contents">
+              <a class="artcle" href="{{trending.get_absolute_url}}">{{trending.title}}</a>
+              <div class="post-meta">
+                <span class="d-block"><a href="#">{{trending.subcategory.name}}</a> in <a href="#">{{trending.subcategory.category.name}}</a></span>
+                <span class="date-read">{{trending.date_updated}} </span>
+              <span class="icon-eye text-info">  {{trending.total_views}} </span>
+
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+
+        <p>
+          <!-- <a href="#" class="more"> <span class="icon-keyboard_arrow_right"></span></a> -->
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END section -->
+<div class="owl-carousel hero-slide owl-style">
+<div class="py-0">
+  <div class="container">
+    <div class="half-post-entry d-block d-lg-flex bg-light">
+      <div class="img-bg" style="background-image: url('{{latestnews.image.url}}')"></div>
+      <div class="contents">
+        <span class="caption">Latest News </span>
+        <h2><a class="artcle" href="{{get_absolute_url.latestnews}}">
+            {{latestnews.title}}
+          </a></h2>
+
+
+        <div class="post-meta">
+          <span class="d-block"><a href="#"> {{latestnews.subcategory.name}}</a> in <a
+              href="#">{{latestnews.subcategory.category.name}}</a></span>
+          <span class="date-read" style="font-weight: 900; font-size: 2em"> {{latestnews.date_updated}} <span class="mx-1">&bullet;</span> 4 min read
+            <span class=""></span></span> <br>
+          <span>tags
+            {% for tags  in latestnews.tags.all  %}
+            <a class="" href="#">{{tags}}</a>
+            {% endfor %}
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="site-section">
+  <div class="container">
+    <div class="row">
+     
+      <!--  -->
+      {% for article_category in navbar_items %}
+
+      <div class="col-lg-6">
+        <div class="">
+          <h2>{{article_category.name}}</h2>
+        </div>
+        
+          <div class="contents">
+            {% for category in article_category.categories.all %}
+            {% for artice in category.articles.all|slice:':3' %}
+            
+              <a style="font-weight: 400; font-size: 2em"  class="icon-keyboard_arrow_right  artcle" href="{{artice.get_absolute_url}}"> {{artice.title}}</a>     
+
+         
+            <div class="post-meta">
+              <span class="date-read" style="font-weight: 900; font-size: 2em">{{artice.date_updated}}</span>
+            </div>
+           
+
+            {% endfor %}
+            {% endfor %}
+          </div>
+       
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+<div class="">
+  <div class="container">
+    <h2>You may have missed</h2> <br>
+    <hr class="">
+    <div class="row">
+      {% for headlines in  headlines_scroll.all|slice:'0:6' %}
+        
+      <div class="col-lg-3">
+       </title>
+       <div class="card">
+         <img class="card-img-top" src="{{headlines.image.url}}" alt="" height="300px" width="auto">
+         <div class="card-body">
+           <h5 class="card-title"><a class="artcle" href="{{headlines.get_absolute_url}}">{{headlines.title}}</a></h5>
+           <span class="date-read" style="font-weight: 900; font-size: 2em"> {{latestnews.date_updated}} <span class="mx-1"></span> 
+
+         </div>
+       </div>
+      </div>
+     
+      {% endfor %}
+    </div>
+  
+    
+  </div>
+</div>
+
+<div class="site-section subscribe bg-light">
+  <div class="container">
+    <form action="#" class="row align-items-center">
+      <div class="col-md-5 mr-auto">
+        <h2>Newsletter Subcribe</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis aspernatur ut at quae omnis pariatur
+          obcaecati possimus nisi ea iste!</p>
+      </div>
+      <div class="col-md-6 ml-auto">
+        <div class="d-flex">
+          <input type="email" class="form-control" placeholder="Enter your email">
+          <button type="submit" class="btn btn-secondary"><span class="icon-paper-plane"></span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+</div>
+<!-- .site-wrap -->
+
+
+<!-- loader -->
+<!-- <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"> -->
+    <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+    <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff5e15" />
+  </svg></div>
+
+
+</body>
+
+
+<style>
+  .nav-item {
+    cursor: pointer;
+    font-size: x-large;
+    
+  }
+
+  .dropdown-item:hover {
+    background-color: bisque;
+  }
+  a:hover{
+    color:black;
+ 
+    
+  }
+  
+
+
+</style>
+
+
+<script>
+  document.getElementById('search').remove()
+</script>
+
+{% endblock body %}

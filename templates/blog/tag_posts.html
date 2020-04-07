@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load bootstrap_pagination %}
+<head>
+  {% block head %}
+
+  <title>
+    {% block title %}
+    blogname &mdash; category
+    {% endblock title %}
+  </title>
+  {% endblock head %}
+
+</head>
+{% block body %}
+  
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+    
+
+
+    <!-- navbar start -->
+
+
+
+
+    <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
+
+      <div class="container">
+        <div class="d-flex align-items-center">
+
+          <div class="mr-auto">
+
+            <nav class="site-navigation position-relative text-right" role="navigation">
+
+
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none pl-0 d-lg-block">
+                <li>
+                  <a style="font-size: x-large;" class="active" href="{% url 'blogsite:home' %}">
+                    Home
+                  </a>
+
+                </li>
+                {% for category  in navbar_items  %}
+              
+                <li class="nav-link text-left nav-item dropdown" is="dropdown">
+                  <div  style="cursor: pointer;" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    {{category.name}}
+                  </div>
+
+                  <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                    {% for sub in category.categories.all  %}
+
+
+                    <a class="dropdown-item" href="{% url 'blogsite:category' sub.id sub.category %}">
+                      {{sub.name}}
+                    </a>
+                    {% endfor %}
+                  </div>
+
+                </li>
+
+                {% endfor %}
+              </ul>
+
+            </nav>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- navbar end -->
+
+    
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+            <div class="section-title">
+              <span class="caption d-block small"></span>
+              <h2>you have searched for:  <h2 class="text-info ml-2"> {{request.GET.q}}</h2></h2>
+            </div>
+
+            {% for articles in article %}
+              
+            
+            <div class="post-entry-2 d-flex">
+              <div class="thumbnail order-md-2" style="background-image: url('{{articles.image.url}}')"></div>
+              <div class="contents order-md-1 pl-0">
+                
+                <h2><a class="article"style="color:red; font-weight: 900; font-size: 3em;" href="{{articles.get_absolute_url}}">{{articles.title}}</a></h2>
+                <div class="post-meta">
+                  <!-- <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span> -->
+                  <span class="date-read"style="font-weight: 900; font-size: 2em">{{articles.date_updated}}</span>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <h2 class="text-danger"> no search result found</h2>
+            {% endfor %}
+
+          
+          </div>
+          <div class="col-lg-3">
+            <div class="section-title">
+              <h2>Popular Posts</h2>
+            </div>
+
+            {% for popular_posts in popular_post %}
+              
+          
+            <div class="trend-entry d-flex">
+              <div class="number align-self-start">{{forloop.counter}}</div>
+              <div class="trend-contents">
+                <a class="post" style="font-weight: 900; font-size: 2em" href="{{popular_posts.get_absolute_url}}">{{popular_posts.title}}</a>
+                <div class="post-meta">
+                  <!-- <span class="d-block"><a href="{{popular_posts.get_absolute_url}}">Dave Rogers</a> in <a href="#">News</a></span> -->
+                  <span class="date-read" style="font-weight: 900; font-size: 2em">{{popular_posts.date_updated}} </span>
+                  <span class="icon-eye text-info"> {{popular_posts.total_views}}</span>
+                </div>
+              </div>
+            </div>
+            
+            {% endfor %}
+            <p>
+             
+            </p>
+          </div>
+        </div>
+
+       
+      </div>
+    </div>
+
+    <div class="site-section subscribe bg-light">
+      <div class="container">
+        <form action="#" class="row align-items-center">
+          <div class="col-md-5 mr-auto">
+            <h2>Newsletter Subcribe</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis aspernatur ut at quae omnis pariatur obcaecati possimus nisi ea iste!</p>
+          </div>
+          <div class="col-md-6 ml-auto">
+            <div class="d-flex">
+              <input type="email" class="form-control" placeholder="Enter your email">
+              <button type="submit" class="btn btn-secondary" ><span class="icon-paper-plane"></span></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <!-- .site-wrap -->
+
+
+  <!-- loader -->
+  <style>
+
+    .nav-item {
+      cursor: pointer;
+      font-size: x-large;
+    }
+    .dropdown-item:hover{
+      background-color: bisque;
+    }
+
+.article:hover{
+color: black;
+}
+.post:hover{
+  color:red;
+}
+  </style>
+
+
+<script>
+    document.getElementById('search').remove()
+  </script>
+  
+{% endblock body %}

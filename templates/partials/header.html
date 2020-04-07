@@ -1,0 +1,72 @@
+
+ <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-lg-6 d-flex">
+            <a href="{% url 'blogsite:home' %}" class="site-logo">
+              Meranda
+            </a>
+
+            <a href="#" class="ml-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
+                class="icon-menu h3"></span></a>
+
+          </div>
+          <div class="col-12 col-lg-6 ml-auto d-flex">
+            <div class="ml-md-auto top-social d-none d-lg-inline-block">
+              <a href="#" class="d-inline-block p-3"><span class="icon-facebook"></span></a>
+                <a href="#" class="d-inline-block p-3"><span class="icon-twitter"></span></a>
+                <a href="#" class="d-inline-block p-3"><span class="icon-instagram"></span></a>
+            </div>
+            <form action="#" class="search-form d-inline-block">
+
+              <div class="d-flex">
+                <input id="search" type="search" class="form-control" placeholder="Search..." name="q">
+                <button id="input" type="submit" class="btn btn-secondary "><a id="link" href="{% url 'blogsite:search' %}">search</a><span class="icon-search"></span></button>
+              </div>
+            </form>
+
+            
+          </div>
+          <div class="col-6 d-block d-lg-none text-right">
+            
+          </div>
+        </div>
+      </div>
+
+
+<style>
+  .dropdown-toggle{
+    /* font-size: xx-large; */
+    font-weight: 900; font-size: 3vh
+  }
+  .site-mobile-menu-body{
+    width: 400px;
+    height: 200px;
+  }
+  .dropdown-item{
+    font-size: 3vh;
+  }
+ 
+img{
+  max-width: 100;
+  height: auto;
+}
+</style>
+
+
+<!-- navbar start -->
+
+
+<!-- navbar end -->
+

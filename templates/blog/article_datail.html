@@ -1,0 +1,233 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% load pagination_tags %}
+
+<head>
+{% block head %}
+  
+<title>
+  {% block title %}
+  blogname &mdash; detailpage
+  {% endblock title %}
+</title>
+{% endblock head %}
+
+
+</head>
+<!-- <link rel="stylesheet" href="css/style.css"> -->
+
+{% block body %}
+
+
+    <!-- navbar start -->
+
+
+
+
+    <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
+
+      <div class="container">
+        <div class="d-flex align-items-center">
+
+          <div class="mr-auto">
+
+            <nav class="site-navigation position-relative text-right" role="navigation">
+
+
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none pl-0 d-lg-block">
+                <li>
+                  <a style="font-size: x-large;" class="active" href="{% url 'blogsite:home' %}">
+                    Home
+                  </a>
+
+                </li>
+                {% for category  in navbar_items  %}
+              
+                <li class="nav-link text-left nav-item dropdown" is="dropdown">
+                  <div  style="cursor: pointer;" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    {{category.name}}
+                  </div>
+
+                  <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                    {% for sub in category.categories.all  %}
+
+
+                    <a class="dropdown-item" href="{% url 'blogsite:category' sub.id sub.category %}">
+                      {{sub.name}}
+                    </a>
+                    {% endfor %}
+                  </div>
+
+                </li>
+
+                {% endfor %}
+              </ul>
+
+            </nav>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- navbar end -->
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 single-content">
+            
+            <p class="mb-5">
+              <img  src="{{articles.image.url}}" alt="Image" class="img-fluid" height="300" width="620">
+            </p>  
+            <h1 id="heading" class="lead text-capitalize">
+              {{articles.title }}
+            </h1>
+            <div class="post-meta d-flex mb-5">
+              <div class="bio-pic mr-3">
+                <img src="{{articles.created_by.profile}}" alt="Image" class="img-fluidid">
+              </div>
+              <div class="vcard">
+                <span class="d-block">by <a class="text-danger" href="#">{{articles.created_by}}</a></span>
+                <span class="date-read">{{articles.date_updated}} <span class="mx-1">&bullet;</span></span>
+              </div>
+            </div>
+    <h2 style="opacity: initial;" id="story" >
+  {{articles.story|safe}} 
+    </h2>
+
+
+            <div class="pt-5">
+                    <p class="popular_post">Categories:  <a href="{% url 'blogsite:category'  articles.subcategory.id articles.subcategory.name %}">{{articles.subcategory.name}}</a>, <br>  Tags: <a href="#">{{articles.tags.all|join:", "}}</a></p>
+                  </div>
+      
+      
+                  <div class="pt-5">
+                    <div class="section-title">
+                    </div>
+                    <!-- commnt start -->
+                    <div class="fb-comments" data-href="{% url 'blogsite:detail' articles.slug articles.id %}" data-width="" data-numposts="5"></div>
+
+                    <!-- comment end -->
+                    
+                   
+                  </div>
+          </div>
+
+
+          <div class="col-lg-4 ml-auto">
+            <div class="section-title">
+              <h2>Popular Posts</h2>
+            </div>
+            {% for popular_post in popular_post|slice:':6'  %}
+            <div class="trend-entry d-flex pl-0">
+              
+                  
+               
+            
+              <div class="number align-self-start">{{forloop.counter}}</div>
+              <div class="trend-contents">
+                <a class="popular_post" class="icon-keyboard_arrow_right" href="{{popular_post.get_absolute_url}}">{{popular_post.title}}</a>
+                <div class="post-meta">
+                  <span class="d-block"><a href="#">{{popular_post.subcategory.name}}</a> in  {{popular_post.subcategory.category.name}}<a href="#"></a></span>
+                  <span class="date-read">{{popular_post.date_updated}} <span class="mx-1">&bullet;</span> </span>
+                </div>
+              </div>
+            
+             
+            </div>
+            {% endfor %}
+
+          
+            <p>
+            </p>
+          </div>
+
+
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="site-section subscribe bg-light">
+      <div class="container">
+        <form action="#" class="row align-items-center">
+          <div class="col-md-5 mr-auto">
+            <h2>Newsletter Subcribe</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis aspernatur ut at quae omnis pariatur obcaecati possimus nisi ea iste!</p>
+          </div>
+          <div class="col-md-6 ml-auto">
+            <div class="d-flex">
+              <input type="email" class="form-control" placeholder="Enter your email">
+              <button type="submit" class="btn btn-secondary" ><span class="icon-paper-plane"></span></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    
+
+  </div>
+  <!-- .site-wrap -->
+
+
+  <!-- loader -->
+
+  <!-- <script src="{% static "js/main.js" %}"></script> -->
+ 
+
+
+<style>
+
+h2{
+      font-size: xx-large;
+    }
+  
+.nav-item {
+    cursor: pointer;
+    font-size: x-large;
+  }
+  .dropdown-item:hover{
+    background-color: bisque;
+  }
+
+  #heading{
+    
+    font-size: 4em;
+    font-weight: 900;
+
+  }
+  #story{
+    font-size: 3vh;
+  }
+  .popular_post{
+    font-size: 2em;
+  font-weight: 900;
+  }
+  .popular_post:hover{
+    color:black
+  }
+
+  .responsive {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+</style>
+
+
+<script>
+  document.getElementById('search').remove()
+</script>
+
+{% endblock body %}
+
