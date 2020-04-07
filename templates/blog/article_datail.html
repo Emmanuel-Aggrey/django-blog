@@ -92,7 +92,8 @@
             </h1>
             <div class="post-meta d-flex mb-5">
               <div class="bio-pic mr-3">
-                <img src="{{articles.created_by.profile}}" alt="Image" class="img-fluidid">
+                {{ post.author.profile.image.url }}
+                <img src="{{articles.created_by.person.profile.url}}" alt="Image" class="img-fluidid">
               </div>
               <div class="vcard">
                 <span class="d-block">by <a class="text-danger" href="#">{{articles.created_by}}</a></span>
@@ -104,13 +105,43 @@
     </h2>
 
 
-            <div class="pt-5">
-                    <p class="popular_post">Categories:  <a href="{% url 'blogsite:category'  articles.subcategory.id articles.subcategory.name %}">{{articles.subcategory.name}}</a>, <br>  Tags: <a href="#">{{articles.tags.all|join:", "}}</a></p>
+            <div class="">
+                    <p class="popular_post">Categories:  <a href="{% url 'blogsite:category'  articles.subcategory.id articles.subcategory.name %}">{{articles.subcategory.name}}</a> 
+                      <ul class="tags btntag">
+                        <h4>tags</h4>
+                        {% for tag in articles.tags.all %}
+                            <li class="btn"><a href="{% url 'blogsite:post_tags' tag %}">{{ tag| title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                  
                   </div>
       
       
                   <div class="pt-5">
                     <div class="section-title">
+
+                      <ul class="icons">
+                        <li>SHARE </li>
+                        <li class="lishare"><a href="https://twitter.com/intent/tweet?" target="_blank" title="Tweet"
+                               onclick="window.open('https://twitter.com/intent/tweet?text=%20' +
+                               encodeURIComponent(document.title) + ':%20 ' +
+                               encodeURIComponent(document.URL)); return false;">
+                            <i class="icon-twitter"></i></a>
+                        </li>
+
+                        <li class="lishare"><a href="https://www.facebook.com/sharer/sharer.php?u=&t=" title="Share on Facebook"
+                               target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='
+                               + encodeURIComponent(document.URL) + '&t='
+                               + encodeURIComponent(document.URL)); return false;">
+                            <i class="icon-facebook"></i>
+                        </a></li>
+
+                        <li class="lishare"><a href="https://www.whatsapp://send?text=" title="Share On Whatsapp"
+                               onclick="window.open('whatsapp://send?text=%20*{{ articles.title }}* %2D '
+                                       + encodeURIComponent(document.URL)); return false;">
+                            <i class="icon-whatsapp"></i>
+                        </a></li>
+                    </ul>
                     </div>
                     <!-- commnt start -->
                     <div class="fb-comments" data-href="{% url 'blogsite:detail' articles.slug articles.id %}" data-width="" data-numposts="5"></div>
@@ -221,6 +252,16 @@ h2{
   width: 100%;
   max-width: 400px;
   height: auto;
+}
+.lishare{
+  display: inline;
+  margin: 1%;
+  font-size: 90px;
+}
+.btntag{
+  display: inline;
+  /* margin: 1%; */
+  font-size: 40px;
 }
 </style>
 
