@@ -83,10 +83,10 @@
     <div class="site-section">
       <div class="container">
         <div class="row">
-          <div class="col-lg-9">
+          <div class="col-lg-8">
             <div class="section-title">
               <span class="caption d-block small"></span>
-              <h2>you have searched for:  <h2 class="text-info ml-2"> {{request.GET.q}}</h2></h2>
+              <h2>tags  <h2 class="text-info ml-2"> {{post_tag}}</h2></h2>
             </div>
 
             {% for articles in article %}
@@ -103,13 +103,11 @@
                 </div>
               </div>
             </div>
-            {% empty %}
-            <h2 class="text-danger"> no search result found</h2>
-            {% endfor %}
-
+           
+   {% endfor %}
           
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-4">
             <div class="section-title">
               <h2>Popular Posts</h2>
             </div>
@@ -117,7 +115,7 @@
             {% for popular_posts in popular_post %}
               
           
-            <div class="trend-entry d-flex">
+            <div class="trend-entry ">
               <div class="number align-self-start">{{forloop.counter}}</div>
               <div class="trend-contents">
                 <a class="post" style="font-weight: 900; font-size: 2em" href="{{popular_posts.get_absolute_url}}">{{popular_posts.title}}</a>

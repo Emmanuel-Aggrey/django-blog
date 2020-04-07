@@ -108,7 +108,7 @@ def search_article(request):
     q = request.GET.get('q')
     if q:
 
-        article =article.filter(Q(subcategory__name__icontains=q)|Q(title__icontains=q)|Q(tags__name__in=q))
+        article =article.filter(Q(subcategory__name__icontains=q)|Q(title__icontains=q))
     context = {
         'navbar_items':navbar_items,
         'article':article,
@@ -127,8 +127,10 @@ def tag_posts(request, tags):
     boot_class = 'col-md-6 col-sm-12'
     context = {
         'navbar_items': Category.objects.all(),
-        'posts': article,
+        'article': article,
         'post_tag': tags,
         'boot_class': boot_class,
+        'popular_post':Article.objects.filter(total_views__gte=2).order_by('-total_views')
+
     }
     return render(request, 'blog/tag_posts.html', context)
