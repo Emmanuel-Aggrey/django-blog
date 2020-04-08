@@ -6,9 +6,10 @@ from  django.db.models import  Q
 from .models import Category,Subcategory,Article
 from datetime import datetime,timedelta
 from django.utils import timezone
+
 # Create your views here.
 
-    
+
 
 def ArticleList(request):
     navbar_items  = Category.objects.all()
@@ -54,7 +55,7 @@ def articleDetail(request,slug,id):
     total_views = int(article.total_views )
     total_views +=1
     
-    Article.objects.filter(id=id).update(total_views=total_views)
+    # Article.objects.filter(id=id).update(total_views=total_views)
 
     navbar_items  = Category.objects.all()
     popular_post =  Article.objects.exclude(slug=slug)
