@@ -1,5 +1,4 @@
-django-bootstrap-form==3.4
-django-bootstrap-pagination==1.7.1
+django-bootstrap-pagination == 1.7.1    
 django-cloudinary-storage==0.2.3   
 cloudinary==1.16.0
 django-ckeditor == 5.9.0    
