@@ -54,7 +54,7 @@ def articleDetail(request,slug,id):
     total_views = int(article.total_views )
     total_views +=1
     
-    # Article.objects.filter(id=id).update(total_views=total_views)
+    Article.objects.filter(id=id).update(total_views=total_views)
 
     navbar_items  = Category.objects.all()
     popular_post =  Article.objects.exclude(slug=slug)
