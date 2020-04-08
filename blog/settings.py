@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     'taggit',
    
     'bootstrap_pagination',
-    'django_select2',
-    
 
 
     'blogsite',
