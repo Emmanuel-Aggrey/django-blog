@@ -1,28 +1,20 @@
 from django.shortcuts import render,get_object_or_404
-from django.views.generic import ListView,DetailView,TemplateView
+from django.views.generic import ListView,DetailView,TemplateView,CreateView
 from  django.views.generic.dates import  MonthArchiveView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from  django.db.models import  Q
 from .models import Category,Subcategory,Article
 from datetime import datetime,timedelta
 from django.utils import timezone
-
 # Create your views here.
 
-
-class BaseView(TemplateView):
-    template_name = 'base.html'
-    def get_queryset(self):
-        queryset = {'navbar':Category.objects.all(),
-        'navbardropdowns':Subcategory.objects.all(),
-        }
-        return queryset
+    
 
 def ArticleList(request):
     navbar_items  = Category.objects.all()
    
     headlines = Article.objects.filter(active=True).order_by('-date_updated')
-    latestnews = Article.objects.order_by('-date_updated')[0]
+    latestnews = Article.objects.order_by('-date_updated')
     # paginating
     paginator = Paginator(headlines, 8)
     page = request.GET.get('page')
@@ -62,8 +54,8 @@ def articleDetail(request,slug,id):
     total_views = int(article.total_views )
     total_views +=1
     
-    Article.objects.filter(id=id).update(total_views=total_views)
-    # print(article.total_views)
+    # Article.objects.filter(id=id).update(total_views=total_views)
+
     navbar_items  = Category.objects.all()
     popular_post =  Article.objects.exclude(slug=slug)
     context = {
@@ -124,12 +116,10 @@ def tag_posts(request, tags):
     # url_tag = str(request.GET('tags')).lower
     # tag = get_object_or_404(Tag, tags)  # get the tags from the url
     article = Article.objects.filter(tags__name__in=[tags]).distinct()
-    boot_class = 'col-md-6 col-sm-12'
     context = {
         'navbar_items': Category.objects.all(),
         'article': article,
         'post_tag': tags,
-        'boot_class': boot_class,
         'popular_post':Article.objects.filter(total_views__gte=2).order_by('-total_views')
 
     }

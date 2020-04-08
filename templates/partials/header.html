@@ -1,10 +1,10 @@
 
  <div class="site-wrap">
 
-    <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu site-navbar-target" style="width: 600px;">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
+          <span class="icon-close2 js-menu-toggle" style="width: 4em;"></span>
         </div>
       </div>
       <div class="site-mobile-menu-body"></div>
@@ -32,7 +32,7 @@
 
               <div class="d-flex">
                 <input id="search" type="search" class="form-control" placeholder="Search..." name="q">
-                <button id="input" type="submit" class="btn btn-secondary "><a id="link" href="{% url 'blogsite:search' %}">search</a><span class="icon-search"></span></button>
+                <button id="input" type="submit" class="btn btn-secondary icon-search "><a id="link" href="{% url 'blogsite:search' %}">search</a></button>
               </div>
             </form>
 
@@ -48,7 +48,7 @@
 <style>
   .dropdown-toggle{
     /* font-size: xx-large; */
-    font-weight: 900; font-size: 3vh
+    font-weight: 900; font-size: 3vh;
   }
   .site-mobile-menu-body{
     width: 400px;

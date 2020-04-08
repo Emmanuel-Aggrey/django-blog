@@ -96,8 +96,7 @@
               <div class="post-meta">
                 <span class="d-block"><a href="#">{{headlines.subcategory.name}}</a> in <a
                     href="#">{{headlines.subcategory.category.name}}</a></span>
-                <span class="date-read"> {{headlines.date_updated}}<span class="mx-1">&bullet;</span><span
-                    class=""></span></span>
+                <span class="date-read"> {{headlines.date_updated}}</span>
               </div>
 
             </div>
@@ -193,8 +192,8 @@
         <div class="post-meta">
           <span class="d-block"><a href="#"> {{latestnews.subcategory.name}}</a> in <a
               href="#">{{latestnews.subcategory.category.name}}</a></span>
-          <span class="date-read" style="font-weight: 900; font-size: 2em"> {{latestnews.date_updated}} <span class="mx-1">&bullet;</span> 4 min read
-            <span class=""></span></span> <br>
+          <span class="date-read" style="font-weight: 900; font-size: 2em"> {{latestnews.date_updated}} </span>
+           
           <span>tags
             {% for tags  in latestnews.tags.all  %}
             <a class="" href="#">{{tags}}</a>
@@ -325,9 +324,12 @@
 
 </style>
 
+<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
 
 <script>
   document.getElementById('search').remove()
+
+  $('.icon-menu h3').height(23)
 </script>
 
 {% endblock body %}

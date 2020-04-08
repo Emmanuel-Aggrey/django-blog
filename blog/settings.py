@@ -45,11 +45,14 @@ INSTALLED_APPS = [
     'taggit',
    
     'bootstrap_pagination',
+    'django_select2',
     
 
 
     'blogsite',
 ]
+
+AUTH_USER_MODEL = 'blogsite.CustomUser' # new
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -92,12 +92,13 @@
             </h1>
             <div class="post-meta d-flex mb-5">
               <div class="bio-pic mr-3">
-                {{ post.author.profile.image.url }}
-                <img src="{{articles.created_by.person.profile.url}}" alt="Image" class="img-fluidid">
+                {{ articles.author.profile }}
+                <img src="{{articles.created_by.profile.url}}" alt="Image" class="img-fluid">
               </div>
               <div class="vcard">
                 <span class="d-block">by <a class="text-danger" href="#">{{articles.created_by}}</a></span>
-                <span class="date-read">{{articles.date_updated}} <span class="mx-1">&bullet;</span></span>
+                <span class="date-read">{{articles.date_updated}} </span>
+
               </div>
             </div>
     <h2 style="opacity: initial;" id="story" >
@@ -168,7 +169,9 @@
                 <a class="popular_post" class="icon-keyboard_arrow_right" href="{{popular_post.get_absolute_url}}">{{popular_post.title}}</a>
                 <div class="post-meta">
                   <span class="d-block"><a href="#">{{popular_post.subcategory.name}}</a> in  {{popular_post.subcategory.category.name}}<a href="#"></a></span>
-                  <span class="date-read">{{popular_post.date_updated}} <span class="mx-1">&bullet;</span> </span>
+                  <span class="date-read">{{popular_post.date_updated}} </span>
+                  <span class="icon-eye text-info">  {{popular_post.total_views}} </span>
+
                 </div>
               </div>
             
@@ -263,6 +266,8 @@ h2{
   /* margin: 1%; */
   font-size: 40px;
 }
+
+
 </style>
 
 

@@ -1,14 +1,17 @@
 from django.contrib import admin
-from .models import Category,Subcategory,Article,Person
+from .models import Category,Subcategory,Article,CustomUser
 # Register your models here.
+
+
+admin.site.register(CustomUser)
 
 admin.site.register(Category)
 
 admin.site.register(Subcategory)
-admin.site.register(Person)
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['subcategory','title','active','created_by',]
+    
+    list_display = ['subcategory','title','active','created_by','total_views',]
     prepopulated_fields = {"slug": ("title",)}
 
 
@@ -18,13 +21,16 @@ class ArticleAdmin(admin.ModelAdmin):
         }),
         ('Content', {
             
-            'fields': ('title', 'image','story','created_by','tags',),
+            'fields': ('title', 'image','story','created_by','tags','source'),
         }),
         ('Advance Options',{
             'classes': ('collapse',),
             'fields': ('active', 'slug'),
         })
     )
+
+
+
 admin.site.register(Article,ArticleAdmin)
 
 
