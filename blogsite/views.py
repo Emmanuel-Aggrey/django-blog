@@ -15,7 +15,7 @@ def ArticleList(request):
     navbar_items  = Category.objects.all()
    
     headlines = Article.objects.filter(active=True).order_by('-date_updated')
-    latestnews = Article.objects.order_by('-date_updated')
+    latestnews = Article.objects.order_by('-date_updated')[0]
     # paginating
     paginator = Paginator(headlines, 8)
     page = request.GET.get('page')
@@ -44,7 +44,7 @@ class ArticleListView(ListView):
         queryset = {
         'navbar':Category.objects.all(),
         'headlines':Article.objects.filter(active=True).order_by('-date_updated'),
-        'latestnews':Article.objects.order_by('-date_updated')[0],
+        'latestnews':Article.objects.order_by('-date_updated')[0]
         #  'news_options':Article.objects.filter(date_add=timezone.now()+timedelta(20))
         }
         return queryset

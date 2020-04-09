@@ -255,7 +255,7 @@
          <img class="card-img-top" src="{{headlines.image.url}}" alt="" height="300px" width="auto">
          <div class="card-body">
            <h5 class="card-title"><a class="artcle" href="{{headlines.get_absolute_url}}">{{headlines.title}}</a></h5>
-           <span class="date-read" style="font-weight: 900; font-size: 2em"> {{latestnews.date_updated}} <span class="mx-1"></span> 
+           <span class="date-read" style="font-weight: 900; font-size: 2em"> {{headlines.date_updated}} <span class="mx-1"></span> 
 
          </div>
        </div>
@@ -323,13 +323,5 @@
 
 
 </style>
-
-<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
-
-<script>
-  document.getElementById('search').remove()
-
-  $('.icon-menu h3').height(23)
-</script>
 
 {% endblock body %}
