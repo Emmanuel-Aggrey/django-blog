@@ -24,7 +24,7 @@
           </div>
           <div class="col-12 col-lg-6 ml-auto d-flex">
             
-            <form action="{% url 'blogsite:search' %}" class="search-form d-inline-block">
+            <form method="GET" action="{% url 'blogsite:search' %}" class="search-form d-inline-block">
 
               <div class="d-flex">
                 <input id="search" type="search" class="form-control" placeholder="Search..." name="q" value="{{request.GET.q}}" style="width: 500px; height: 60px;">
