@@ -122,7 +122,12 @@
                 <div class="post-meta">
                   <!-- <span class="d-block"><a href="{{popular_posts.get_absolute_url}}">Dave Rogers</a> in <a href="#">News</a></span> -->
                   <span class="date-read" style="font-weight: 900; font-size: 2em">{{popular_posts.date_updated}} </span>
-                  <span class="icon-eye text-info"> {{popular_posts.total_views}}</span>
+                  <span class="icon-eye text-info"> {{popular_posts.total_views}}</span> <br>
+                 {% for tag in popular_posts.tags.all %}
+              <a class="btn text-light" href="{% url 'blogsite:post_tags' tag %}">{{ tag| title }}</a>
+
+              {% endfor %}
+
                 </div>
               </div>
             </div>
@@ -178,9 +183,4 @@ color: black;
 }
   </style>
 
-
-<script>
-    document.getElementById('search').remove()
-  </script>
-  
 {% endblock body %}

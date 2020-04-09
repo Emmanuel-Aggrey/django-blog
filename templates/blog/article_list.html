@@ -194,11 +194,12 @@
               href="#">{{latestnews.subcategory.category.name}}</a></span>
           <span class="date-read" style="font-weight: 900; font-size: 2em"> {{latestnews.date_updated}} </span>
            
-          <span>tags
-            {% for tags  in latestnews.tags.all  %}
-            <a class="" href="#">{{tags}}</a>
-            {% endfor %}
-          </span>
+           <h4>tags</h4>
+              {% for tag in latestnews.tags.all %}
+              <a class="btn text-light" href="{% url 'blogsite:post_tags' tag %}">{{ tag| title }}</a>
+
+              {% endfor %}
+            
         </div>
 
       </div>

@@ -111,10 +111,9 @@
               <h4>source : <a href="{{articles.source}}" target="_blank" rel="noopener noreferrer">link</a> </h4>
               <h4>tags</h4>
               {% for tag in articles.tags.all %}
-              <li class="btn text-light><a href="{% url 'blogsite:post_tags' tag %}">{{ tag| title }}</a></li>
+              <a class="btn text-light" href="{% url 'blogsite:post_tags' tag %}">{{ tag| title }}</a>
 
               {% endfor %}
-            </ul>
 
         </div>
 
