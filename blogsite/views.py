@@ -1,9 +1,10 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,get_list_or_404
 from django.views.generic import ListView,DetailView,TemplateView,CreateView
+from django.views.generic.dates import MonthArchiveView
 from  django.views.generic.dates import  MonthArchiveView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from  django.db.models import  Q
-from .models import Category,Subcategory,Article
+from .models import Category,Subcategory,Article,CustomUser
 from datetime import datetime,timedelta
 from django.utils import timezone
 
@@ -15,9 +16,12 @@ def ArticleList(request):
     navbar_items  = Category.objects.all()
    
     headlines = Article.objects.filter(active=True).order_by('-date_updated')
-    latestnews = Article.objects.order_by('-date_updated')[0]
+    latestnews = Article.objects.filter(date_updated__month=datetime.now().strftime('%m'))
+ 
+
+    #  Article.objects.order_by('-date_updated')[0]
     # paginating
-    paginator = Paginator(headlines, 8)
+    paginator = Paginator(headlines, 2)
     page = request.GET.get('page')
     try:
         headlines_pag= paginator.page(page)
@@ -35,19 +39,6 @@ def ArticleList(request):
 
     return render(request,'blog/article_list.html',context)
 
-class ArticleListView(ListView):
-    template_name = 'blog/article_list.html'
-    model =Article
-    # paginate_by =1
-    context_object_name = 'objects'
-    def get_queryset(self):
-        queryset = {
-        'navbar':Category.objects.all(),
-        'headlines':Article.objects.filter(active=True).order_by('-date_updated'),
-        'latestnews':Article.objects.order_by('-date_updated')[0]
-        #  'news_options':Article.objects.filter(date_add=timezone.now()+timedelta(20))
-        }
-        return queryset
 
 
 def articleDetail(request,slug,id):
@@ -125,3 +116,35 @@ def tag_posts(request, tags):
 
     }
     return render(request, 'blog/tag_posts.html', context)
+
+def author_list(request, author):
+    author = get_object_or_404(CustomUser,username=author)
+    author_writing = Article.objects.filter(created_by=author)
+    
+    # paginating
+    paginator = Paginator(author_writing, 10)
+    page = request.GET.get('page')
+    try:
+        author_writings= paginator.page(page)
+    except PageNotAnInteger:
+        author_writings = paginator.page(1)
+    except EmptyPage:
+        author_writings = paginator.page(paginator.num_pages)
+
+    
+
+    context = {
+        'navbar_items': Category.objects.all(),
+        'author_writings': author_writings,
+        'created_by':author,
+        'popular_post':Article.objects.filter(total_views__gte=2).order_by('-total_views')
+
+    }
+    return render(request, 'blog/author_articles.html', context)
+
+
+class ArticleMonthArchiveView(MonthArchiveView):
+    queryset = Article.objects.all()
+    date_field = "date_updated"
+    allow_future = True
+    template_name = 'blog/month_archive.html'

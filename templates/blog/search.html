@@ -95,7 +95,7 @@
               <div class="thumbnail order-md-2" style="background-image: url('{{articles.image.url}}')"></div>
               <div class="contents order-md-1 pl-0">
                 
-                <h2><a class="article"style="color:red; font-weight: 900; font-size: 3em;" href="{{articles.get_absolute_url}}">{{articles.title}}</a></h2>
+                <h2><a class="article"style="color:red; font-weight: 900; font-size: 3em;" href="{{articles.get_absolute_url}}">{{articles.title|truncatechars:100}}</a></h2>
                 <div class="post-meta">
                   <!-- <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span> -->
                   <span class="date-read"style="font-weight: 900; font-size: 2em">{{articles.date_updated}}</span>
@@ -119,7 +119,7 @@
             <div class="trend-entry ">
               <div class="number align-self-start">{{forloop.counter}}</div>
               <div class="trend-contents">
-                <a class="post" style="font-weight: 900; font-size: 2em" href="{{popular_posts.get_absolute_url}}">{{popular_posts.title}}</a>
+                <a class="post" style="font-weight: 900; font-size: 2em" href="{{popular_posts.get_absolute_url}}">{{popular_posts.title|truncatechars:130}}</a>
                 <div class="post-meta">
                   <!-- <span class="d-block"><a href="{{popular_posts.get_absolute_url}}">Dave Rogers</a> in <a href="#">News</a></span> -->
                   <span class="date-read" style="font-weight: 900; font-size: 2em">{{popular_posts.date_updated}} </span>
@@ -139,22 +139,7 @@
       </div>
     </div>
 
-    <div class="site-section subscribe bg-light">
-      <div class="container">
-        <form action="#" class="row align-items-center">
-          <div class="col-md-5 mr-auto">
-            <h2>Newsletter Subcribe</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis aspernatur ut at quae omnis pariatur obcaecati possimus nisi ea iste!</p>
-          </div>
-          <div class="col-md-6 ml-auto">
-            <div class="d-flex">
-              <input type="email" class="form-control" placeholder="Enter your email">
-              <button type="submit" class="btn btn-secondary" ><span class="icon-paper-plane"></span></button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+  
 
   </div>
   <!-- .site-wrap -->

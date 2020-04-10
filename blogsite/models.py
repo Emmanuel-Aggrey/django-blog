@@ -18,6 +18,9 @@ class BaseModel(models.Model):
 class CustomUser(AbstractUser):
     # add additional fields in here
     profile = models.ImageField(upload_to='profiles')
+    facebook = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
     
 class Category(BaseModel):
     name = models.CharField(max_length=200,unique=True)
@@ -42,17 +45,21 @@ class Article(BaseModel):
     image = models.ImageField(upload_to='%d-%m-%Y/images',blank=True, null=True)
     story=RichTextField()
     active = models.BooleanField(default=True)
-    created_by = models.ForeignKey(CustomUser,on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey(CustomUser,on_delete=models.DO_NOTHING,related_name='author_writings')
     slug = models.SlugField()
     tags = TaggableManager()
     total_views = models.PositiveIntegerField(default=0)
     source =  models.URLField(help_text='source link',blank=True, null=True)
 
+    class Meta:
+        ordering = ['-date_updated']
+
     def get_absolute_url(self):
        
         return reverse('blogsite:detail', args=[str(self.slug),str(self.id)])
     
-
+    def full_name(self):
+        return self.created_by.get_full_name()
 
     def __str__(self):
         return '{} > {}'.format(self.subcategory,self.title)

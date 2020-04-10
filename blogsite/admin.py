@@ -3,7 +3,10 @@ from .models import Category,Subcategory,Article,CustomUser
 # Register your models here.
 
 
-admin.site.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ['username','first_name','last_name','facebook','twitter','instagram',]
+
+admin.site.register(CustomUser,CustomUserAdmin)
 
 admin.site.register(Category)
 

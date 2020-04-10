@@ -46,15 +46,16 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&autoLogAppEvents=1&version=v6.0&appId=609950832895238"></script>
 <!-- facebook comment end -->
 
- {% include "partials/header.html" %} {
+ {% include "partials/header.html" %} 
 <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff5e15"/></svg></div>
+
 
     {% block body %}
 
 
       
     {% endblock body %}
-    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <button onclick="topFunction()" id="myBtn">Top</button>
 
 
     {% include "partials/footer.html" %}
@@ -117,7 +118,11 @@
 
 
 }
-
+#myBtn:hover{
+  background-color: rgb(97, 114, 94);
+  color: white;
+  cursor:progress;
+}
 .artcle{
   
   /* font-size: 2vh; */

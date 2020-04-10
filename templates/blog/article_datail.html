@@ -81,44 +81,31 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 single-content">
-
-        <p class="mb-5">
-          <img src="{{articles.image.url}}" alt="Image" class="img-fluid" height="300" width="620">
-        </p>
-        <h1 id="heading" class="lead text-capitalize">
+        <h1 id="heading" class="lead text-capitalize" style="margin-bottom: 10%;">
           {{articles.title }}
         </h1>
+        <p class="mb-5">
+          <img src="{{articles.image.url}}" alt="Image" class="img-fluid" style="height: 500px; width: 600;">
+        </p>
+
+
+
         <div class="post-meta d-flex mb-5">
           <div class="bio-pic mr-3">
-            {{ articles.author.profile }}
+
             <img src="{{articles.created_by.profile.url}}" alt="Image" class="img-fluid">
           </div>
           <div class="vcard">
-            <span class="d-block">by <a class="text-danger" href="#">{{articles.created_by}}</a></span>
-            <span class="date-read">{{articles.date_updated}} </span>
+            <h1 style="font-weight: 900;" class="d-block">by <a class="text-danger"
+                href="{% url 'blogsite:author_list' articles.created_by %}">{{articles.created_by.get_full_name}}</a>
+            </h1>
+            <h1 class="date-read">{{articles.date_updated}} </h1>
 
           </div>
         </div>
-        <h2 style="opacity: initial;" id="story">
-          {{articles.story|safe}}
-        </h2>
 
-
-        <div class="">
-          <p class="popular_post">Categories: <a
-              href="{% url 'blogsite:category'  articles.subcategory.id articles.subcategory.name %}">{{articles.subcategory.name}}</a>
-            <ul class="tags btntag">
-              <h4>source : <a href="{{articles.source}}" target="_blank" rel="noopener noreferrer">link</a> </h4>
-              <h4>tags</h4>
-              {% for tag in articles.tags.all %}
-              <a class="btn text-light" href="{% url 'blogsite:post_tags' tag %}">{{ tag| title }}</a>
-
-              {% endfor %}
-
-        </div>
-
-
-        <div class="pt-5">
+        <!-- share -->
+        <div class="" >
           <div class="section-title">
 
             <ul class="icons">
@@ -150,64 +137,81 @@
 
 
         </div>
-      </div>
+
+        <!-- end share -->
+        <h1 style="font-size: 3em; " id="story">
+          {{articles.story|safe}}
+        </h1>
 
 
-      <div class="col-lg-4 ml-auto">
-        <div class="section-title">
-          <h2>Popular Posts</h2>
+        <div class="">
+          <p class="popular_post">Categories: <a
+              href="{% url 'blogsite:category'  articles.subcategory.id articles.subcategory.name %}">{{articles.subcategory.name}}</a>
+            <ul class="">
+             {% if  articles.source %}
+             <h1>source : <a href="{{articles.source}}" target="_blank"
+              rel="noopener noreferrer">{{articles.source}}</a> </h1>
+          <h2>Tags</h2>
+             {% endif %}
+              {% for tag in articles.tags.all %}
+
+              <ul style="display: inline;">
+                <li class="" style="display: inline;">
+                  {% if tag %}
+                  <a class="btn text-light tags" href="{% url 'blogsite:post_tags' tag %}"><h5>{{ tag| title }}</h5></a>
+
+                  {% endif %}
+                </li>
+              </ul>
+
+              {% endfor %}
+
         </div>
-        {% for popular_post in popular_post|slice:':6'  %}
-        <div class="trend-entry d-flex pl-0">
 
 
+</div>
 
-
-          <div class="number align-self-start">{{forloop.counter}}</div>
-          <div class="trend-contents">
-            <a class="popular_post" class="icon-keyboard_arrow_right"
-              href="{{popular_post.get_absolute_url}}">{{popular_post.title}}</a>
-            <div class="post-meta">
-              <span class="d-block"><a href="#">{{popular_post.subcategory.name}}</a> in
-                {{popular_post.subcategory.category.name}}<a href="#"></a></span>
-              <span class="date-read">{{popular_post.date_updated}} </span>
-              <span class="icon-eye text-info"> {{popular_post.total_views}} </span>
-
-            </div>
+<hr>
+        <div class="col-lg-4 ml-auto">
+          <div class="section-title">
+            <hr class="bg-danger">
+            <h1 style="font-weight: 900;margin-top: 2em;">Popular Posts</h1>
           </div>
+          {% for popular_post in popular_post|slice:':6'  %}
+          <div class="trend-entry d-flex pl-0">
 
 
+
+
+            <div class="number align-self-start">{{forloop.counter}}</div>
+            <div class="trend-contents">
+              <a class="popular_post" class="icon-keyboard_arrow_right"
+                href="{{popular_post.get_absolute_url}}"><h1 style="font-weight: bold;">{{popular_post.title|truncatechars:100}}</h1></a>
+              <div class="post-meta">
+                <span class="d-block"><a href="#">{{popular_post.subcategory.name}}</a> in
+                  {{popular_post.subcategory.category.name}}<a href="#"></a></span>
+                <span class="date-read">{{popular_post.date_updated}} </span>
+                <span class="icon-eye text-info"> {{popular_post.total_views}} </span>
+
+              </div>
+            </div>
+
+
+          </div>
+          {% endfor %}
+
+
+          <p>
+          </p>
         </div>
-        {% endfor %}
 
 
-        <p>
-        </p>
       </div>
-
 
     </div>
-
   </div>
-</div>
 
-<div class="site-section subscribe bg-light">
-  <div class="container">
-    <form action="#" class="row align-items-center">
-      <div class="col-md-5 mr-auto">
-        <h2>Newsletter Subcribe</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis aspernatur ut at quae omnis pariatur
-          obcaecati possimus nisi ea iste!</p>
-      </div>
-      <div class="col-md-6 ml-auto">
-        <div class="d-flex">
-          <input type="email" class="form-control" placeholder="Enter your email">
-          <button type="submit" class="btn btn-secondary"><span class="icon-paper-plane"></span></button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
+
 
 
 
@@ -243,9 +247,7 @@
 
   }
 
-  #story {
-    font-size: 3vh;
-  }
+
 
   .popular_post {
     font-size: 2em;
@@ -264,14 +266,18 @@
 
   .lishare {
     display: inline;
-    margin: 1%;
-    font-size: 90px;
+    margin: 6%;
+    font-size: 50px;
+  
   }
 
   .btntag {
     display: inline;
     /* margin: 1%; */
     font-size: 40px;
+  }
+  .tags:hover{
+  color: rgb(201, 16, 87);
   }
 </style>
 

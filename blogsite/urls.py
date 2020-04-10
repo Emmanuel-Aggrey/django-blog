@@ -9,4 +9,7 @@ urlpatterns = [
     path('detail/<slug:slug>/<int:id>/',views.articleDetail,name='detail'),
     path('search_article',views.search_article,name='search'),
     path('post_tags/<str:tags>/',views.tag_posts,name='post_tags'),
+    path('author/<str:author>/',views.author_list,name='author_list'),
+    path('<int:year>/<str:month>/', views.ArticleMonthArchiveView.as_view(), name="archive_month"),
+    
 ]

@@ -80,17 +80,19 @@
 
   <div class="site-section py-0">
 
-    <div class="owl-carousel hero-slide owl-style">
+    <div class="owl-carousel hero-slide owl-style" >
       {% for headlines in headlines_scroll.all|slice:':5' %}
       <div class="site-section">
         <div class="container">
 
           <div class="half-post-entry d-block d-lg-flex bg-light">
-
+            {% if headlines.image %}
             <div class="img-bg" style=" background-image: url('{{headlines.image.url}}')"></div>
+
+            {% endif %}
             <div class="contents">
               <span class="caption">Headlines</span> <br>
-             <a class="artcle" href="{{headlines.get_absolute_url}}">{{headlines.title}}</a>
+             <a  class="artcle" href="{{headlines.get_absolute_url}}"><h1 style="font-weight: bolder;">{{headlines.title|truncatechars:150}}</h1></a>
 
 
               <div class="post-meta">
@@ -129,9 +131,12 @@
             <div class="col-md-12">
               {% for newshub in headlines_pag  %}
               <div class="post-entry-2 d-flex bg-light">
+                {% if newshub.image %}
                 <div class="thumbnail" style="height: 230px; background-image: url('{{newshub.image.url}}')"></div>
+
+                {% endif %}
                 <div class="contents">
-                  <a class="" href="{{newshub.get_absolute_url}}"><h3 style="font-weight: 900; " class="article">{{newshub.title}}</h3></a>
+                  <a class="" href="{{newshub.get_absolute_url}}"><h1 style="font-weight: bolder;">{{newshub.title|truncatechars:100}}</h1></a>
                   <div class="post-meta">
                     <span  class="d-block article "><a href="#">{{newshub.subcategory.name}}</a> in <a href="#">{{newshub.subcategory.category.name}}</a></span>
                     <span class="date-read article">{{newshub.date_updated}}<span class="mx-1">&bullet;</span><span
@@ -142,7 +147,7 @@
            
               {% endfor %}
             </div>
-            {% bootstrap_paginate headlines_pag %}
+            <h1>{% bootstrap_paginate headlines_pag %}</h1>
           </div>
         </div>
         <div class="col-lg-4">
@@ -155,7 +160,7 @@
           <div class="trend-entry d-flex">
             <div class="number align-self-start">{{forloop.counter}}</div>
             <div class="trend-contents">
-              <a class="artcle" href="{{trending.get_absolute_url}}">{{trending.title}}</a>
+              <a class="artcle" href="{{trending.get_absolute_url}}"><h1 style="font-weight: 900;">{{trending.title|truncatechars:90}}</h1></a>
               <div class="post-meta">
                 <span class="d-block"><a href="#">{{trending.subcategory.name}}</a> in <a href="#">{{trending.subcategory.category.name}}</a></span>
                 <span class="date-read">{{trending.date_updated}} </span>
@@ -177,15 +182,25 @@
   </div>
 </div>
 <!-- END section -->
+
+
 <div class="owl-carousel hero-slide owl-style">
+  {% for latestnews in latestnews %}
+
 <div class="py-0">
+
+ 
   <div class="container">
     <div class="half-post-entry d-block d-lg-flex bg-light">
+      {% if latestnews.image %}
       <div class="img-bg" style="background-image: url('{{latestnews.image.url}}')"></div>
+
+      {% endif %}
       <div class="contents">
-        <span class="caption">Latest News </span>
+       
+        <span class="caption"> <h1 style="color: rgb(173, 49, 90); font-weight: bolder;">This Month</h1> </span>
         <h2><a class="artcle" href="{{get_absolute_url.latestnews}}">
-            {{latestnews.title}}
+            {{latestnews.title|truncatechars:55}}
           </a></h2>
 
 
@@ -194,7 +209,7 @@
               href="#">{{latestnews.subcategory.category.name}}</a></span>
           <span class="date-read" style="font-weight: 900; font-size: 2em"> {{latestnews.date_updated}} </span>
            
-           <h4>tags</h4>
+           <h4>Tags</h4>
               {% for tag in latestnews.tags.all %}
               <a class="btn text-light" href="{% url 'blogsite:post_tags' tag %}">{{ tag| title }}</a>
 
@@ -203,10 +218,15 @@
         </div>
 
       </div>
+   
     </div>
+    
   </div>
+
 </div>
+{% endfor %}
 </div>
+
 <div class="site-section">
   <div class="container">
     <div class="row">
@@ -223,7 +243,7 @@
             {% for category in article_category.categories.all %}
             {% for artice in category.articles.all|slice:':3' %}
             
-              <a style="font-weight: 400; font-size: 2em"  class="icon-keyboard_arrow_right  artcle" href="{{artice.get_absolute_url}}"> {{artice.title}}</a>     
+              <a style="font-weight: 400; font-size: 2em"  class="icon-keyboard_arrow_right  artcle" href="{{artice.get_absolute_url}}"><h1>{{artice.title|truncatechars:100}}</h1> </a>     
 
          
             <div class="post-meta">
@@ -253,9 +273,12 @@
       <div class="col-lg-3">
        </title>
        <div class="card">
+         {% if headlines.image %}
          <img class="card-img-top" src="{{headlines.image.url}}" alt="" height="300px" width="auto">
+
+         {% endif %}
          <div class="card-body">
-           <h5 class="card-title"><a class="artcle" href="{{headlines.get_absolute_url}}">{{headlines.title}}</a></h5>
+           <h5 class="card-title"><a class="artcle" href="{{headlines.get_absolute_url}}">{{headlines.title|truncatechars:80}}</a></h5>
            <span class="date-read" style="font-weight: 900; font-size: 2em"> {{headlines.date_updated}} <span class="mx-1"></span> 
 
          </div>
@@ -266,24 +289,6 @@
     </div>
   
     
-  </div>
-</div>
-
-<div class="site-section subscribe bg-light">
-  <div class="container">
-    <form action="#" class="row align-items-center">
-      <div class="col-md-5 mr-auto">
-        <h2>Newsletter Subcribe</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis aspernatur ut at quae omnis pariatur
-          obcaecati possimus nisi ea iste!</p>
-      </div>
-      <div class="col-md-6 ml-auto">
-        <div class="d-flex">
-          <input type="email" class="form-control" placeholder="Enter your email">
-          <button type="submit" class="btn btn-secondary"><span class="icon-paper-plane"></span></button>
-        </div>
-      </div>
-    </form>
   </div>
 </div>
 
@@ -320,8 +325,10 @@
  
     
   }
-  
+  .img-bg{
 
+    height: 360px;
+  }
 
 </style>
 
