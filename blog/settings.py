@@ -28,6 +28,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 
 ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['192.168.43.212','127.0.0.1','django-blog.herokuapp.com']
 
 
 # Application definition
