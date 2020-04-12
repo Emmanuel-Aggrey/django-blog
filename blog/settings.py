@@ -40,17 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.sites',
+  
 
     # 3rd party
     'ckeditor',
     'taggit',
+    'cloudinary_storage',
     'cloudinary',
-    'six',
     'bootstrap_pagination',
-    # 'django_comments',
+    
 
-
+# personal
     'blogsite',
 ]
 
@@ -142,7 +142,7 @@ USE_TZ = True
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
 
 
