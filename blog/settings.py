@@ -143,7 +143,8 @@ USE_TZ = True
 MEDIA_URL = '/media/'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
-DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
+# DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
