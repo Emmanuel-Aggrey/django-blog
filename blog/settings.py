@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'taggit',
     'cloudinary',
+    'six',
     'bootstrap_pagination',
     # 'django_comments',
 
