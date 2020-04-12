@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 3rd party
     'ckeditor',
     'taggit',
+    'six',
     'cloudinary_storage',
     'cloudinary',
     'bootstrap_pagination',
