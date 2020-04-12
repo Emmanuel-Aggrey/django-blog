@@ -49,7 +49,7 @@ def articleDetail(request,slug,id):
     Article.objects.filter(id=id).update(total_views=total_views)
 
     navbar_items  = Category.objects.all()
-    popular_post =  Article.objects.exclude(slug=slug)
+    popular_post =  Article.objects.exclude(slug=slug).filter(total_views__gte=10)
     context = {
         'navbar_items':navbar_items,
         'articles':article,
@@ -62,7 +62,7 @@ def  articleCategory(request,category,id):
     category = get_object_or_404(Subcategory,id=id)
 
     articles = category.articles.order_by('-date_updated')
-    popular_post = category.articles.filter(total_views__gte=2).order_by('-total_views')
+    popular_post = category.articles.filter(total_views__gte=10).order_by('-total_views')
 
      # paginating
     paginator = Paginator(articles, 10)
