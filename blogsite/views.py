@@ -91,7 +91,7 @@ def search_article(request):
 
     q = request.GET.get('q')
     if q:
-
+    
         article =article.filter(Q(subcategory__name__icontains=q)|Q(title__icontains=q))
     context = {
         'navbar_items':navbar_items,
